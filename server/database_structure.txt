@@ -1,0 +1,65 @@
+Database name: SGAppControl
+
+Table: DeployedPolicies
+  column 1 name: ID
+  column 1 data type: integer
+  column 1 other: auto-increment
+  column 2 name: WorkstationID
+  column 2 data type: integer
+  column 2 other: 
+  column 3 name: PolicyID
+  column 3 data type: integer
+  column 3 other: 
+
+Table: PoliciesToBeDeployed
+  column 1 name: ID
+  column 1 data type: integer
+  column 1 other: auto-increment
+  column 2 name: WorkstationID
+  column 2 data type: integer
+  column 2 other: 
+  column 3 name: PolicyID
+  column 3 data type: integer
+  column 3 other: 
+
+Table: PoliciesToBeRemoved
+  column 1 name: ID
+  column 1 data type: integer
+  column 1 other: auto-increment
+  column 2 name: WorkstationID
+  column 2 data type: integer
+  column 2 other: 
+  column 3 name: PolicyID
+  column 3 data type: integer
+  column 3 other: 
+  
+Table: PolicyList
+  column 1 name: ID
+  column 1 data type: integer
+  column 1 other: auto-increment
+  column 2 name: PolicyFileName
+  column 2 data type: nvarchar(50)
+  column 2 other: 
+  column 3 name: FriendlyPolicyName
+  column 3 data type: nvarchar(50)
+  column 3 other: 
+  column 4 name: IsBasePolicy
+  column 4 data type: bit
+  column 4 other: 
+  column 5 name: IsLockedPolicy
+  column 5 data type: bit
+  column 5 other: 
+
+Table: WorkstationList
+  column 1 name: ID
+  column 1 data type: integer
+  column 1 other: auto-increment
+  column 2 name: WorkstationName
+  column 2 data type: nvarchar(30)
+  column 2 other: 
+  column 3 name: WorkstationPrimaryUser
+  column 3 data type: nvarchar(20)
+  column 3 other: 
+  column 4 name: LastCheckIn
+  column 4 data type: datetime
+  column 4 other: 
