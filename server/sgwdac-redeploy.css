@@ -1,0 +1,73 @@
+
+/* --- The Container --- */
+/* Must have overflow enabled to see the scrolling effect */
+.sticky-column-container {
+    overflow: auto; /* Enable both horizontal and vertical scrolling if needed */ /* Comment this line (and max-height: auto; below) out to use the whole browser window */
+    max-width: 100%;
+    max-height: 900px; /* Forces vertical scroll for demo purposes */   /* Comment this line (and overflow: auto; above) out to use the whole browser window */
+    border: 1px solid #76AFE0;
+    border-radius: 8px;
+}
+
+.sticky-column-table {
+    width: 100%;
+    /* Use a min-width to ensure the table is wider than the container */
+    min-width: 1200px; 
+    border-collapse: collapse;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+
+/* --- Basic Cell Styling --- */
+.sticky-column-table th,
+.sticky-column-table td {
+    padding: 12px 15px;
+    border: 1px solid #8288CC;
+    text-align: center;
+}
+.sticky-column-table th {
+    background-color: #C5DFF7;
+    font-weight: bold;
+}
+
+th[scope="row"] {
+  text-align: right;
+}
+
+/* --- The Sticky Logic --- */
+.sticky-column-table thead th {
+    /* Make all header cells sticky to the top */
+    position: -webkit-sticky;
+    position: sticky;
+    top: 48px;
+    z-index: 2; /* Needs to be higher than body cells */
+}
+
+/* Make all first-child th and td elements sticky to the left */
+.sticky-column-table th:first-child,
+.sticky-column-table td:first-child {
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    z-index: 1; /* Sits below the header but above the rest of the body */
+
+    /* Must have a background to hide content scrolling under it */
+    background-color: #C5DFF7; 
+}
+.sticky-column-table tbody td:first-child {
+    background-color: #f8f9fa; /* A slightly different color for the body column */
+    font-weight: 500;
+}
+
+/* The top-left corner cell needs the highest z-index */
+/* to sit on top of both the header row and the first column */
+.sticky-column-table thead th:first-child {
+    top: 48px;
+    z-index: 3;
+}
+
+.btnRedeploy {
+    margin-top:20px;
+    padding:10px;
+    background-color: #C5DFF7;
+}

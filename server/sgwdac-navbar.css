@@ -1,0 +1,41 @@
+
+
+header {
+    padding: 20px 0; /* Adds some breathing room below the sticky nav */
+}
+
+/* Navigation Bar Styles */
+.simple-nav {
+    background-color: #333; /* Dark background */
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 0;
+
+    /* Sticky Properties */
+    position: -webkit-sticky; /* Support for Safari */
+    position: sticky;
+    top: 0;
+    z-index: 4; /* Keeps it above the table headers and rows */
+}
+
+.simple-nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Aligns items horizontally */
+    justify-content: center; /* This centers the items horizontally */
+}
+
+.simple-nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+}
+
+/* Change color on hover */
+.simple-nav li a:hover {
+    background-color: #555;
+}
