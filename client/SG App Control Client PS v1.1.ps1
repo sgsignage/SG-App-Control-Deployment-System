@@ -159,7 +159,7 @@ function Remove-DBPolicyToBeDeployedOrRemovedIsCompletedRecord {
 
 # **************************** BEGIN Add-DBDeployedPolicyRecord FUNCTION **********************
 # This function will create a new record/entry in the 'DeployedPolicies' table.
-# It accepts 2 parameters - the ID of the workstation (from the WorkstationList table), and the PolicyID (from the PolicyListTable)
+# It accepts 2 parameters - the ID of the workstation (from the WorkstationList table), and the PolicyID (ID from the PolicyListTable)
 # This function will get called/used when we are cycling through all of the policy files on the workstation and we want to enter
 #     a record into the 'DeployedPolicies' table for each policy file
 function Add-DBDeployedPolicyRecord {
@@ -407,7 +407,7 @@ try {
 
 # This query will check for any policies to be deployed to this workstation
     $QueryPoliciesToBeDeployed = @"
-SELECT p.ID, p.PolicyID, s.PolicyID AS GUID, s.PolicyFileName, s.FriendlyPolicyName
+SELECT p.ID, p.PolicyID, s.PolicyFileName, s.FriendlyPolicyName
 FROM PoliciesToBeDeployed p
 INNER JOIN PolicyList s ON p.PolicyID = s.id
 WHERE p.WorkstationID = $MyWorkstationID
@@ -424,17 +424,17 @@ WHERE p.WorkstationID = $MyWorkstationID
         $ObjectEntryInList = [PSCustomObject]@{
         IDToBeDeployedRecord = $Reader[0]    
         PolicyIDKeyVal = $Reader[1]
-        PolicyGUID = $Reader[2]
-        PolicyFileName = $Reader[3]
-        PolicyFriendlyName = $Reader[4]
-        #$MyWorkstationID = $Reader[5]
+        #PolicyGUID = $Reader[2]
+        PolicyFileName = $Reader[2]
+        PolicyFriendlyName = $Reader[3]
+        #$MyWorkstationID = $Reader[4]
         }
 
         # Add each Policy ID to our list as we loop, the NEW OBJECT WAY:
         $null = $PolicyFileNamesToBeAddedList.Add($ObjectEntryInList)
 
         Write-Host "  > Policy ID Key Value: $($ObjectEntryInList.PolicyIDKeyVal)"
-        Write-Host "  > Policy ID PolicyGUID: $($ObjectEntryInList.PolicyGUID)"
+        Write-Host "  > Policy Filename: $($ObjectEntryInList.PolicyFileName)"
 
         $PoliciesToBePulledDeployed = $true # This flag will only get set to True if there were any results returned because this whole block won't execute unless something is returned
         $LocalPolicyRefreshTrigger = $true # This flag will only get set to True if there were any results returned because this whole block won't execute unless something is returned
@@ -451,7 +451,7 @@ WHERE p.WorkstationID = $MyWorkstationID
 
 # This query will check for any policies to be removed from this workstation
     $QueryPoliciesToBeRemoved = @"
-SELECT p.ID, p.PolicyID, s.PolicyID AS GUID, s.PolicyFileName, s.FriendlyPolicyName
+SELECT p.ID, p.PolicyID, s.PolicyFileName, s.FriendlyPolicyName
 FROM PoliciesToBeRemoved p
 INNER JOIN PolicyList s ON p.PolicyID = s.id
 WHERE p.WorkstationID = $MyWorkstationID
@@ -468,17 +468,17 @@ WHERE p.WorkstationID = $MyWorkstationID
         $RemovePoliciesObjectEntryInList = [PSCustomObject]@{
         RPIDToBeRemovedRecord = $Reader[0]    
         RPPolicyIDKeyVal = $Reader[1]
-        RPPolicyGUID = $Reader[2]
-        RPPolicyFileName = $Reader[3]
-        RPPolicyFriendlyName = $Reader[4]
-        #$MyWorkstationID = $Reader[5]
+        #RPPolicyGUID = $Reader[2]
+        RPPolicyFileName = $Reader[2]
+        RPPolicyFriendlyName = $Reader[3]
+        #$MyWorkstationID = $Reader[4]
         }
 
         # Add each Policy ID to our list as we loop, the NEW OBJECT WAY:
         $null = $PolicyFileNamesToBeRemovedList.Add($RemovePoliciesObjectEntryInList)
 
         Write-Host "  > Policy TO BE REMOVED ID Key Value: $($RemovePoliciesObjectEntryInList.RPPolicyIDKeyVal)"
-        Write-Host "  > Policy TO BE REMOVED ID PolicyGUID: $($RemovePoliciesObjectEntryInList.RPPolicyGUID)"
+        Write-Host "  > Policy TO BE REMOVED FileName: $($RemovePoliciesObjectEntryInList.RPPolicyFileName)"
 
         $PoliciesToBeRemoved = $true # This flag will only get set to True if there were any results returned because this whole block won't execute unless something is returned
         $LocalPolicyRefreshTrigger = $true # This flag will only get set to True if there were any results returned because this whole block won't execute unless something is returned
@@ -539,7 +539,7 @@ if ($PoliciesToBePulledDeployed) {
 
     # Logic here to pull policy files to local workstation
     foreach ($Poolicy in $PolicyFileNamesToBeAddedList) {
-        Write-Host "New policy to be deployed: $($Poolicy.PolicyGUID) ( $($Poolicy.PolicyFriendlyName) )"
+        Write-Host "New policy to be deployed: $($Poolicy.PolicyFileName) ( $($Poolicy.PolicyFriendlyName) )"
         
         # Combine the source directory and filename safely
         $FullSourcePath = Join-Path -Path $PolicySourcePath -ChildPath $($Poolicy.PolicyFileName)
@@ -666,7 +666,7 @@ if ($PoliciesToBeRemoved) {
 
     # Logic here to delete policy files on local workstation
     foreach ($Pooplicy in $PolicyFileNamesToBeRemovedList) {
-        Write-Host "Existing policy [file] to be removed: $($Pooplicy.RPPolicyGUID) ( $($Pooplicy.RPPolicyFriendlyName) )"
+        Write-Host "Existing policy [file] to be removed: $($Pooplicy.RPPolicyFileName) ( $($Pooplicy.RPPolicyFriendlyName) )"
         
         # Combine the source directory and filename safely
         $FullSourcePath = Join-Path -Path $LocalPolicyPath -ChildPath $($Pooplicy.RPPolicyFileName)
