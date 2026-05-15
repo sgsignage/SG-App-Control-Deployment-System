@@ -1,7 +1,7 @@
 # SG-App-Control-Deployment-System
 A poor-man deployment system for Microsoft App Control (WDAC) policies. Uses a Powershell script on the client side, and IIS (classic .ASP pages) and MS SQL Server on the backend. Before we go any further, take a look at the Software Prerequisites section below. Don't worry - all the software needed can be obtained for free if you don't already have it.
 
-Note that this is only a *deployment* system - if you need to create policies check out Microsoft's App Control for Business Wizard: https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/design/appcontrol-wizard
+Note that this is only a *deployment* system - if you need to create policies, check out Microsoft's App Control for Business Wizard: https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/design/appcontrol-wizard
 
 ## Features
 - Simple, customizable, intuitive GUI Web-based interface
@@ -15,6 +15,7 @@ Note that this is only a *deployment* system - if you need to create policies ch
 - Assign 'friendly' names to your policies in addition to the file name for quick identification
 - 'Lock' policies (not the actual files, but the policies/deployment in the database) so that you don't accidently delete them
 - Mark 'Base' policies as such
+- Easily modifiable 'Title' tag (change in one place for the entire web app)
 
 ## Why
 There are 3 reasons I built this:
@@ -40,6 +41,7 @@ The way I see it there are 3 main components:
 3. The database that assists in deployment, re-deployment, removal, and keeping track of everything, which also runs on the 'server'
 
 ## How It Works (The Gory Details)
+(To be updated)
 
 ## Installation Instructions
 
@@ -49,17 +51,25 @@ There are 2 components to the server side - the database and the web application
 Before you do anything else, go ahead and download the .zip file for this full repository.
 
 #### The Database
-You'll need to do a couple things here.
-1. Create a new database named `SGAppControl`
-2. Download everything in this repository (just download the .zip file is the quickest)
-3. Refer to the `database_structure.txt` file found in "server" folder of this repository. Using the information in that file, create your tables in your new database.
-4. Create a new SQL Server user (and password of course), assign the user to your new database, and give appropriate permissions to (SELECT, UPDATE, INSERT, DELETE) all the tables you just created.
-5. Modify the `conString` variable (line #2) in the `includes.asp` file in the "server" folder.
+The following assumes you have a working, configured MS SQL Server set up. If you don't, please stop, get one set up, then come back here and continue:
+1. Extract the `database_structure.txt` file (in the 'server' folder) from the .zip file you downloaded
+2. Create a new database named `SGAppControl`
+3. Download everything in this repository (just download the .zip file is the quickest)
+4. Refer to the `database_structure.txt` file. Using the information in that file, create new tables in your new database that you created in #2
+5. Create a new SQL Server user (and password of course), assign the user to your new database, and give appropriate permissions to (SELECT, UPDATE, INSERT, DELETE) all the tables you just created
+6. Create one more SQL Server user, but this time, create it based off of the special "Domain Computers" security group. Give it all the same permissions that you gave the user you just created in the previous step 
 
 #### The Web Application
+1. Create a new folder (let's call it `wdac` going forward here) on your hard drive, extract all of the files in the 'server' folder from the .zip file into this new `wdac` folder (note - the `database_structure.txt` file does not need to be in this folder - you can and should keep this file somewhere else)
+2. Edit the `conString` variable (line #2) in the `includes.asp` file in your new `wdac` folder - change the values in this string to match your environment (the "UID" and "PWD" are the User/Password you created in the #5 step of the "The Database" section above)
+3. Optionally change the 'title' tag (line #11) to whatever you want
+4. In IIS, create a new "Virtual Directory" or "Application" that points to the new 'wdac' folder you created in #1.
+5. Optionally - set up Authentication in this new "Virtual Directory" or "Application" to protect from unauthorized access (for information on how to do this, you can search on Google or consult with an AI chat bot of your choice)
 
 ### The Client
-
+The 'client' is simply a Powershell script, but we do need to do a couple things:
+1. On a client/workstation place a copy of the `SG App Control Client PS vX.X.ps1` Powershell script (which you'll find in the 'client' folder of the extracted .zip file) into a folder of your choosing
+2. Edit this file in the text editor of your choice
 
 ## Screenshots of the Management Interface
 
