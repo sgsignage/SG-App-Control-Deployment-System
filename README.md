@@ -1,6 +1,8 @@
 # SG-App-Control-Deployment-System
 A poor-man deployment system for Microsoft App Control (WDAC) policies. Uses a Powershell script on the client side, and IIS (classic .ASP pages) and MS SQL Server on the backend. Before we go any further, take a look at the Software Prerequisites section below. Don't worry - all the software needed can be obtained for free if you don't already have it.
 
+Note that this is only a *deployment* system - if you need to create policies check out Microsoft's App Control for Business Wizard: https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/design/appcontrol-wizard
+
 ## Features
 - Simple, customizable, intuitive GUI Web-based interface
 - Easily password-protect your web application
@@ -40,6 +42,24 @@ The way I see it there are 3 main components:
 ## How It Works (The Gory Details)
 
 ## Installation Instructions
+
+### The Server
+There are 2 components to the server side - the database and the web application. Read on for setting up both.
+
+Before you do anything else, go ahead and download the .zip file for this full repository.
+
+#### The Database
+You'll need to do a couple things here.
+1. Create a new database named `SGAppControl`
+2. Download everything in this repository (just download the .zip file is the quickest)
+3. Refer to the `database_structure.txt` file found in "server" folder of this repository. Using the information in that file, create your tables in your new database.
+4. Create a new SQL Server user (and password of course), assign the user to your new database, and give appropriate permissions to (SELECT, UPDATE, INSERT, DELETE) all the tables you just created.
+5. Modify the `conString` variable (line #2) in the `includes.asp` file in the "server" folder.
+
+#### The Web Application
+
+### The Client
+
 
 ## Screenshots of the Management Interface
 
