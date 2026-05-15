@@ -35,5 +35,20 @@ If you do not have Microsoft SQL Server already, you can actually download it fo
 The way I see it there are 3 main components:
 1. The PowerShell script that executes on the target/workstation.
 2. The web application that runs on the 'server'
-3. The database that assists in deployment, and keeping track of everything, which also runs on the 'server'
+3. The database that assists in deployment, re-deployment, removal, and keeping track of everything, which also runs on the 'server'
 
+## How It Works (The Gory Details)
+
+## Installation Instructions
+
+## Screenshots of the Management Interface
+
+<img width="1882" height="888" alt="Deploy Policies" src="https://github.com/user-attachments/assets/f2f067ad-57ea-4cf0-a566-805837b079a4" />
+
+<img width="1883" height="941" alt="Re-Deploy Policies" src="https://github.com/user-attachments/assets/3d8346fe-ca4f-43fe-b2f6-5d14f0a38d67" />
+
+<img width="1885" height="938" alt="Remove Policies" src="https://github.com/user-attachments/assets/d3eff8b7-6e16-47b2-8edc-9bed0a24ad88" />
+
+<img width="1884" height="942" alt="Policies" src="https://github.com/user-attachments/assets/644ba093-1b34-45ec-a7b5-970bf67101dc" />
+
+<img width="1890" height="952" alt="Workstations" src="https://github.com/user-attachments/assets/2ac1b22f-ea2b-4f7c-a389-a8da63f90da8" />
