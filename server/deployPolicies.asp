@@ -165,11 +165,11 @@ End If
                             Response.Write "<a href='cancelPending.asp?id=" & recordID & "&pendingAction=deploy' "
                             Response.Write "style='color:red; text-decoration:none;' title='Cancel Deployment'>" & cancelPendingIcon & "</a>"
                             Response.Write "</span>"
+                        End If
+                    Else
+                        ' Show checkbox for new deployment
+                        Response.Write "<input type='checkbox' name='deploy' class='col-" & wID & "' value='" & wID & "|" & pID & "'>" 
                     End If
-                Else
-                    ' Show checkbox for new deployment
-                    Response.Write "<input type='checkbox' name='deploy' class='col-" & wID & "' value='" & wID & "|" & pID & "'>" 
-                End If
                     
                     Response.Write "</td>"
                 Next
