@@ -150,10 +150,10 @@ End If
                     Response.Write "<td style='text-align:center;'>"
                     
                     If dictStatus.Exists(lookupKey) Then
-                    ' Split the status and RecordID
-                    Dim statusParts : statusParts = Split(dictStatus.Item(lookupKey), "|")
-                    Dim currentStatus : currentStatus = statusParts(0)
-                    Dim recordID : recordID = statusParts(1)
+                        ' Split the status and RecordID
+                        Dim statusParts : statusParts = Split(dictStatus.Item(lookupKey), "|")
+                        Dim currentStatus : currentStatus = statusParts(0)
+                        Dim recordID : recordID = statusParts(1)
                     
                         If currentStatus = "Pending" Then
                             ' Display Pending label and the red cancel icon
