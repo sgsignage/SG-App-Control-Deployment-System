@@ -26,9 +26,14 @@
 #    then remove the corresponding entry in the 'PoliciesToBeRemoved' table so that we don't keep trying to delete this policy file
 #
 # 9. Cycle through every policy file on the workstation. Using each filename, 1st look up and see if there is a corresponding entry in the 'PolicyList' table.
-#    If there is - simply add a record in the 'DeployedPolicies' table with the workstation ID and the found policy ID
-#    If there is not - 1st add a record in the 'PolicyList' table, retrieving the ID of this new record, AND THEN add a record in the 'DeployedPolicies' table with the
-#          workstation ID and the new Policy's ID
+#    If it does not, 1st add an entry into the 'PolicyList' table for it, then:
+#        A. Enter a record into the 'DeployedPolicies' table with that new ID and the ID of this workstation
+#        B. Add the ID (of the new entry in the 'PolicyList' table) into the $FoundPolicyIDsArray
+#    If it does:
+#        A. Check our Hash Table, $PolicyLookupHashTable to see if the file we're currently looking at (via the record ID of the Policy) is in the 'DeployedPolicies' table
+#                If it is NOT:
+#                       I. Using the matched Policy record ID, and current Workstation ID, add an entry into the 'DeployedPolicies' table
+#        B. Add the ID of the matching record in the 'PolicyList' table to the array, $FoundPolicyIDsArray
 #
 # 10. Update the last check in time for this workstation ('WorkstationList' table)
 #
